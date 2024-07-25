@@ -22,10 +22,10 @@ and [here](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility)
 
 ## instructions
 
-1. create main folder (say "big-ng-spfx")
-2. ng new ... (say "inner-angular-elements")
-3. create subfolder for spfx (say "outer-angular-spfx")
-4. inside run yo .... and create spfx
+1. create main folder (say `big-ng-spfx`)
+2. create angular project, ng new ... (say `inner-angular-elements`)
+3. create subfolder for spfx (say `outer-angular-spfx`)
+4. inside create spfx solution with `yo` .... and create spfx
 
 
 ## journey 
@@ -40,11 +40,12 @@ lets do some tests and see how smart we can go
 
 ### version 1 - dummy level
 
-1. in ng proj run ng build (creates "\dist" folder)
-2. create sp-site (say "play with angular")
-3. create DocLib  (say "ng")
-4. upload there all files from "\dist\inner-angular-elements\browser" folder, only browser! 
-5. in spfx change html to link + app-root from "\dist\inner-angular-elements\browser\index.csr.html" and change href to DocLoc route like "/sites/playwithangular/ng/"
+0. see instructions above 
+1. inside ng project run `ng build` (creates `\dist` folder)
+2. inside office 365 create new SharePoint site (say `play with angular`)
+3. create new DocLib (say `ng`)
+4. upload there all files from `\dist\inner-angular-elements\browser` folder, only browser! 
+5. in spfx change html to link + app-root from `\dist\inner-angular-elements\browser\index.csr.html` and change href to DocLoc route like `/sites/playwithangular/ng/`
 ```
       <link rel="stylesheet" href="/sites/playwithangular/ng/styles-5INURTSO.css">
       <app-root></app-root>
@@ -133,7 +134,8 @@ now lets make our like a bit automated
 (Module parse failed: Identifier has already been declared)[https://www.linkedin.com/pulse/sharepoint-framework-development-some-gotchas-how-solve-sergeev)
 
 
-1. in ng app `npm i concat`
+0. skip to 3, just add code from 2. 1+2 is buggy and useless, its just for demo.
+1. in ng app `npm i concat` 
 2. create new file in ng app root folder (say "bundle-for-spfx.js") with code to bundle output to 1 file. (SEE MY FILE AT GIT)[]. since in spfx 1.19 there is a bug about this bundling, and angular 18 creates a css file, therefor this step isn't the "real deal" and you can just stay with (soon tbd how to not add suffixes)
 ```
 require("../../../../inner-angular-elements/dist/inner-angular-elements/browser/styles.css");
@@ -143,7 +145,7 @@ import "../../../../inner-angular-elements/dist/inner-angular-elements/browser/m
 3. in `gulpfile.js` add line `build.addSuppression(/Warning/gi);`. this will stop the problem with `gulp bundle --ship` exiting with `The build failed because a task wrote output to stderr. Exiting with exit code: 1`, so next step will work.
 4. create `.bat` file (say "batman.bat") in root spfx dir with this code
 ```
-(cd ../inner-angular-elements && ng build --output-hashing=none && node bundle-for-spfx.js) && (cd ../outer-angular-spfx && gulp build && gulp bundle --ship && gulp package-solution --ship)
+(cd ../inner-angular-elements && ng build --output-hashing=none) && (cd ../outer-angular-spfx && gulp build && gulp bundle --ship && gulp package-solution --ship)
 ```
 now you only need to run `batman.js` for your `.sppkg`
 
@@ -188,6 +190,13 @@ i cant do that yet.... :)
 
 
 also make something that knows between gulp serve and gulp build
+
+
+
+## foreward
+
+* added SPService support example, see spfx webpart and app-component
+
 
 
 

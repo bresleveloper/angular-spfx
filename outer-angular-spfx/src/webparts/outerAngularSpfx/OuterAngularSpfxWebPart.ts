@@ -9,6 +9,7 @@ import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './OuterAngularSpfxWebPart.module.scss';
 import * as strings from 'OuterAngularSpfxWebPartStrings';
+import SP_Service from '../../services/SPService';
 
 
 //code for ### version 2 - rookie level
@@ -19,8 +20,8 @@ import "../../../../inner-angular-elements/dist/inner-angular-elements/browser/m
 
 
 //### version 3 - intermidiate  level
-/*require("../../../../inner-angular-elements/dist/inner-angular-elements/browser/styles.css");
-import "../../../../inner-angular-elements/dist/spfxBundle.js"*/
+require("../../../../inner-angular-elements/dist/inner-angular-elements/browser/styles.css");
+//import "../../../../inner-angular-elements/dist/spfxBundle.js"
 
 
 
@@ -36,12 +37,19 @@ export interface IOuterAngularSpfxWebPartProps {
 
 export default class OuterAngularSpfxWebPart extends BaseClientSideWebPart<IOuterAngularSpfxWebPartProps> {
 
+  private _spService: SP_Service;
+
+
   public render(): void {
     //console.log("OUTER ANGULAR ### version 1 - dummy level");
     //console.log("OUTER ANGULAR ### version 2 - rookie level");
     //console.log("OUTER ANGULAR ### 3 - intermidiate level");
     console.log("OUTER ANGULAR ### 4 - advanced level");
     
+    
+    this._spService = new SP_Service(this.context)
+    // @ts-ignore
+    window._spService = this._spService
 
 
     //code for ### version 1 - dummy level
@@ -52,6 +60,8 @@ export default class OuterAngularSpfxWebPart extends BaseClientSideWebPart<IOute
       <!--<h1>### version 2 - rookie level</h1>-->
       <!--<h1>### version 3 - intermidiate level</h1>-->
       <h1>### version 4 - advanced level</h1>
+      
+      <h2>### version 4.1 - SPService support in angular</h2>
       
       <app-root></app-root>
     </section>`;
