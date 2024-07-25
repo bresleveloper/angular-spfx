@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "outer-angular-spfx-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/outerAngularSpfx/OuterAngularSpfxWebPart.js",
+          "manifest": "./src/webparts/outerAngularSpfx/OuterAngularSpfxWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "OuterAngularSpfxWebPartStrings": "lib/webparts/outerAngularSpfx/loc/{locale}.js"
+  }
+}

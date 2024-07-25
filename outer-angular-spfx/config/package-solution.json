@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "outer-angular-spfx-client-side-solution",
+    "id": "6183b03b-380f-4688-9b38-19d2ea46ab40",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "outer-angular-spfx description"
+      },
+      "longDescription": {
+        "default": "outer-angular-spfx description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "outer-angular-spfx Feature",
+        "description": "The feature that activates elements of the outer-angular-spfx solution.",
+        "id": "955037cb-7959-401e-a09e-27dffa62e244",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/outer-angular-spfx.sppkg"
+  }
+}
