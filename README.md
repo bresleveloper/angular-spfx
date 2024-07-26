@@ -133,7 +133,8 @@ import { AppComponent } from './app/app.component';
 change the `app.module` like this
 * remove `bootstrap`
 * add reference to  `CommonModule` in `imports`
-* ```
+* add this code per element (change tags ect.)
+```
 export class AppModule { 
   constructor(private injector: Injector, private router: Router, private location: Location) {
     const __AppComponent = createCustomElement(AppComponent, { injector });
