@@ -15,21 +15,16 @@ so
 * Package Manager : npm 10.7.0
 * SPFX			  : 1.19.0
 
-will try angular standalone feature (15.x+) instead of @angular/elements
 
 see more [here](https://stackoverflow.com/questions/60248452/is-there-a-compatibility-list-for-angular-angular-cli-and-node-js)
 and [here](https://learn.microsoft.com/en-us/sharepoint/dev/spfx/compatibility)
 
-## instructions
-
-1. create main folder (say `big-ng-spfx`)
-2. create angular project, ng new ... (say `inner-angular-elements`)
-3. create subfolder for spfx (say `outer-angular-spfx`)
-4. inside create spfx solution with `yo` .... and create spfx
-
 
 ## journey 
-lets do some tests and see how smart we can go
+lets do some tests and see how smart we can go.
+
+example with angular standalone feature (15.x+). doesnt really matter.
+
 
 #### links
 1. https://gonadn.medium.com/setup-angular-cli-elements-project-and-spfx-as-two-projects-solution-b733f1776ee4
@@ -40,7 +35,13 @@ lets do some tests and see how smart we can go
 
 ### version 1 - dummy level
 
-0. see instructions above 
+#### create folders and solutions
+1. create main folder (say `big-ng-spfx`)
+2. create angular project, ng new ... (say `inner-angular-elements`)
+3. create subfolder for spfx (say `outer-angular-spfx`)
+4. inside create spfx solution with `yo` .... and create spfx
+
+#### build 1 - dummy level
 1. inside ng project run `ng build` (creates `\dist` folder)
 2. inside office 365 create new SharePoint site (say `play with angular`)
 3. create new DocLib (say `ng`)
@@ -111,7 +112,11 @@ import "../../../../inner-angular-elements/dist/inner-angular-elements/browser/p
 import "../../../../inner-angular-elements/dist/inner-angular-elements/browser/main-I35CX3XL.js"
 ```
 2. in the ng proj `npm install @angular/elements --save`. if you run like this you get error NG05104, since scripts run before the "render" function that add the html. i could theoretically play with the main.js and add some timeout ect., but eventually angular elements solves it better with browser custom elements.
-3. change main.ts like instuctions from here [angulararchitects.io](https://www.angulararchitects.io/en/blog/angular-elements-web-components-with-standalone-components/). here is the quick version (dont forget to change to the right element html tag!)
+3. this changes with or without standalone
+
+#### in case of standalone
+
+change main.ts like instuctions from here [angulararchitects.io](https://www.angulararchitects.io/en/blog/angular-elements-web-components-with-standalone-components/). here is the quick version (dont forget to change to the right element html tag!)
 ```
 import { createCustomElement } from '@angular/elements';
 import { createApplication } from '@angular/platform-browser';
@@ -122,6 +127,25 @@ import { AppComponent } from './app/app.component';
   customElements.define('app-root', appRoot);
 })();
 ```
+
+#### in case of non- standalone
+
+change the `app.module` like this
+* remove `bootstrap`
+* add reference to  `CommonModule` in `imports`
+* ```
+export class AppModule { 
+  constructor(private injector: Injector, private router: Router, private location: Location) {
+    const __AppComponent = createCustomElement(AppComponent, { injector });
+    customElements.define('app-root', __AppComponent);
+  }
+
+  ngDoBootstrap(){
+    this.router.initialNavigation();
+  }
+}
+```
+
 4. ng build, change file names in item 1 in this list
 5. gulp away your spfx
 
